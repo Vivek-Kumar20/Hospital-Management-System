@@ -1,22 +1,108 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+ General body and font styles 
 body {
-  margin-bottom: 60px;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;  Light gray background 
+    color: #343a40;  Dark text 
 }
+
+ Styling for the main navbar brand name 
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #343a40;  Dark text for light navbar 
+    transition: all 0.3s ease-in-out;
+}
+.navbar-brand:hover {
+    color: #0d6efd;  Primary Bootstrap blue on hover 
+    transform: scale(1.02);
+}
+.navbar-brand span {
+    color: #0d6efd;  Primary Bootstrap blue for emphasis 
+}
+
+ Styles for main content cards, including the hover effect 
+.card {
+    border-radius: 0.75rem;  More rounded corners 
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);  Soft shadow 
+    transition: all 0.3s ease-in-out;  Smooth transitions for card effects 
+}
+.card:hover {
+    transform: translateY(-5px);  Lift card slightly on hover 
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);  Enhance shadow on hover 
+    cursor: pointer;  Indicate interactivity 
+}
+
+ Styles for general buttons 
+.btn {
+    border-radius: 50rem;  Pill-shaped buttons 
+    transition: all 0.3s ease-in-out;  Smooth transitions for buttons 
+    transform: scale(1);  Base scale for animation 
+}
+.btn:hover {
+    transform: scale(1.02);  Slightly grow on hover 
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);  Add shadow on hover 
+}
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
+ Styles for form controls (inputs, selects, textareas) 
+.form-control, .form-select, .form-control:focus, .form-select:focus {
+    border-radius: 0.5rem;
+    transition: all 0.3s ease-in-out;  Smooth transition for focus 
+    box-shadow: none !important;  Reset default Bootstrap focus shadow 
+}
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;  Primary color border on focus 
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;  Custom focus ring 
+}
+
+ Fade-in animation for content appearing on page load 
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ Pulse animation for alerts 
+.alert.pulse {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+    70% {
+        transform: scale(1.01);
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+

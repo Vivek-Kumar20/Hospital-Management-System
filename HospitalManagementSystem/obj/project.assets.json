@@ -1601,6 +1601,35 @@
             "rid": "win"
           }
         }
+      },
+      "HospitalManagementSystem.BusinessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "HospitalManagementSystem.Repository": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.6"
+        },
+        "compile": {
+          "bin/placeholder/HospitalManagementSystem.BusinessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HospitalManagementSystem.BusinessLogic.dll": {}
+        }
+      },
+      "HospitalManagementSystem.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.6"
+        },
+        "compile": {
+          "bin/placeholder/HospitalManagementSystem.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HospitalManagementSystem.Repository.dll": {}
+        }
       }
     }
   },
@@ -4712,33 +4741,45 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "HospitalManagementSystem.BusinessLogic/1.0.0": {
+      "type": "project",
+      "path": "../HospitalManagementSystem.BusinessLogic/HospitalManagementSystem.BusinessLogic.csproj",
+      "msbuildProject": "../HospitalManagementSystem.BusinessLogic/HospitalManagementSystem.BusinessLogic.csproj"
+    },
+    "HospitalManagementSystem.Repository/1.0.0": {
+      "type": "project",
+      "path": "../HospitalManagementSystem.Repository/HospitalManagementSystem.Repository.csproj",
+      "msbuildProject": "../HospitalManagementSystem.Repository/HospitalManagementSystem.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "HospitalManagementSystem.BusinessLogic >= 1.0.0",
+      "HospitalManagementSystem.Repository >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.6"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\2407094\\.nuget\\packages\\": {},
+    "C:\\Users\\2407104\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2407094\\source\\repos\\HospitalManagementSystem\\HospitalManagementSystem\\HospitalManagementSystem.csproj",
+      "projectUniqueName": "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem\\HospitalManagementSystem.csproj",
       "projectName": "HospitalManagementSystem",
-      "projectPath": "C:\\Users\\2407094\\source\\repos\\HospitalManagementSystem\\HospitalManagementSystem\\HospitalManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\2407094\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2407094\\source\\repos\\HospitalManagementSystem\\HospitalManagementSystem\\obj\\",
+      "projectPath": "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem\\HospitalManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\2407104\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\2407094\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\2407104\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4753,7 +4794,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem.BusinessLogic\\HospitalManagementSystem.BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem.BusinessLogic\\HospitalManagementSystem.BusinessLogic.csproj"
+            },
+            "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem.Repository\\HospitalManagementSystem.Repository.csproj": {
+              "projectPath": "C:\\Users\\2407104\\Source\\Repos\\Hospital-Management-System\\HospitalManagementSystem.Repository\\HospitalManagementSystem.Repository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4766,7 +4814,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4806,7 +4854,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
