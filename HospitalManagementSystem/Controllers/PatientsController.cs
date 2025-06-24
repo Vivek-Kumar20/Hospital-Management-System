@@ -189,7 +189,7 @@ namespace HospitalManagementSystem.Controllers
                     // If RegistrationDate was allowed to be edited on the form, it would be in the bind list.
 
                     await _patientService.UpdatePatientAsync(existingPatient); // Pass the retrieved and updated entity
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Browse));
                 }
                 catch (DbUpdateConcurrencyException) // Catch specific EF Core concurrency exceptions
                 {
