@@ -1,0 +1,594 @@
+﻿<!-- Path: HospitalManagementSystem.Web/Views/Patients/Index.cshtml -->
+@using HospitalManagementSystem.Repository.Models
+@model IEnumerable<Patient>
+
+@* @{
+    ViewData["Title"] = "Patient List";
+    // *** FIX START ***
+    // Retrieve the search string from ViewData, which is set by the PatientsController
+    var currentSearchString = ViewData["CurrentSearchString"] as string;
+    // *** FIX END ***
+}
+<div class="card p-4 mx-auto" style="max-width: 1000px;">
+    <h1 class="text-center mb-4 display-4 font-weight-bold">
+        <span class="text-primary">Patient</span> Records
+    </h1> *@
+
+
+
+@* @* <partial name="_PatientNavTabs" /> *@
+
+
+
+@*     <div class="row mb-4 mt-4 justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 mb-3 mb-md-0">
+          
+            <form asp-controller="Patients" asp-action="Index" method="get" class="d-flex">
+                <input type="text" name="searchString" class="form-control rounded-pill me-2 shadow-sm" placeholder="Search by name..." value="@currentSearchString" />
+                <button type="submit" class="btn btn-outline-primary rounded-pill shadow-sm flex-shrink-0">
+                    <i class="bi bi-search me-1"></i>Search
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4 text-center text-md-end">
+           
+            <a asp-action="Create" class="btn btn-primary btn-md">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Add New Patient
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-striped shadow-sm rounded-3 overflow-hidden">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th scope="col" class="py-3 px-3">Name</th>
+                        <th scope="col" class="py-3 px-3">Date of Birth</th>
+                        <th scope="col" class="py-3 px-3">Gender</th>
+                        <th scope="col" class="py-3 px-3">Contact Number</th>
+                        <th scope="col" class="py-3 px-3">Address</th>
+                        <th scope="col" class="py-3 px-3 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="py-3 px-3">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="py-3 px-3">
+                                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                            </td>
+                            <td class="py-3 px-3">
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td class="py-3 px-3">
+                                @Html.DisplayFor(modelItem => item.ContactNumber)
+                            </td>
+                            <td class="py-3 px-3">
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td class="py-3 px-3 text-center">
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No patient records found. Start by adding a new patient!
+        </div>
+    }
+</div>
+
+ *@
+
+
+<!-- 2nd Path: HospitalManagementSystem.Web/Views/Patients/Index.cshtml -->
+@* 
+@{
+    ViewData["Title"] = "Patient List";
+    var currentSearchString = ViewData["CurrentSearchString"] as string;
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<div class="container-fluid py-5 text-center bg-white shadow-sm" style="border-radius: 1rem; margin-top: 2rem !important; background: linear-gradient(to right, #f0f8ff, #e6f7ff);">
+    <div class="col-md-9 mx-auto">
+        <h1 class="display-4 fw-bold text-primary mb-3">
+            <i class="bi bi-person-circle me-3"></i>Patient Dashboard
+        </h1>
+        <p class="lead fw-normal text-muted mb-4">
+            A centralized hub for managing all patient records efficiently and securely.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a class="btn btn-primary btn-lg" asp-action="Create">
+                <i class="bi bi-plus-circle me-2"></i>Register New Patient
+            </a>
+            <a class="btn btn-outline-secondary btn-lg" href="@Url.Action("Index", "Patients")">
+                <i class="bi bi-list-check me-2"></i>Browse Patient List
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4 mx-auto mt-5" style="max-width: 1000px;">
+    
+    <h2 class="text-center mb-4 display-5 fw-bold text-dark">
+        <i class="bi bi-people me-3 text-secondary"></i> Patient Records 
+    </h2>
+    <p class="text-center text-muted mb-5">
+        Browse and search for patient information within the system.
+    </p>
+
+    <div class="card p-2 mb-4 shadow-sm border-0" style="max-width: 800px; margin: 0 auto; border-radius: 0.5rem; background-color: #f8f9fa;">
+        
+    </div>
+
+    <div class="row mb-4 mt-4 justify-content-center align-items-center g-3">
+        <div class="col-12 col-md-8 col-lg-6">
+            <form asp-controller="Patients" asp-action="Index" method="get" class="d-flex w-100">
+                <input type="text" id="searchNameInput" name="searchString" class="form-control rounded-pill me-2 shadow-sm"
+                       placeholder="Search by patient name..." value="@currentSearchString" list="patientNamesDatalist" />
+                <datalist id="patientNamesDatalist"></datalist>
+                <button type="submit" class="btn btn-outline-primary rounded-pill shadow-sm flex-shrink-0">
+                    <i class="bi bi-search me-1"></i>Search
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4 text-center text-md-end">
+            <a asp-action="Create" class="btn btn-primary btn-lg">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Add New Patient
+            </a>
+        </div>
+    </div>
+
+    <div id="patient-list-section">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive mt-4">
+                <table class="table table-hover table-striped shadow-sm rounded-3 overflow-hidden">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th scope="col" class="py-3 px-3">Name</th>
+                            <th scope="col" class="py-3 px-3">Date of Birth</th>
+                            <th scope="col" class="py-3 px-3">Gender</th>
+                            <th scope="col" class="py-3 px-3">Contact Number</th>
+                            <th scope="col" class="py-3 px-3">Address</th>
+                            <th scope="col" class="py-3 px-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Gender)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td class="py-3 px-3 text-center">
+                                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-info">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center mt-4 p-4 shadow-sm" role="alert">
+                <h4 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i>No Patient Records Found!</h4>
+                <p class="mb-0">It looks like there are no patient records matching your criteria or in the system. Start by registering a <a asp-action="Create" class="alert-link">New Patient</a>.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var searchInput = $('#searchNameInput');
+            var patientNamesDatalist = $('#patientNamesDatalist');
+            var debounceTimer;
+
+            searchInput.on('input', function () {
+                clearTimeout(debounceTimer);
+                var searchTerm = $(this).val();
+
+                if (searchTerm.length > 1) {
+                    debounceTimer = setTimeout(function () {
+                        $.ajax({
+                            url: '@Url.Action("GetPatientNamesSuggestions", "Patients")',
+                            type: 'GET',
+                            data: { term: searchTerm },
+                            success: function (data) {
+                                patientNamesDatalist.empty();
+                                if (data && data.length > 0) {
+                                    $.each(data, function (index, value) {
+                                        patientNamesDatalist.append($('<option>').attr('value', value));
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error fetching suggestions:", error);
+                            }
+                        });
+                    }, 300);
+                } else {
+                    patientNamesDatalist.empty();
+                }
+            });
+        });
+    </script>
+} *@
+
+
+@*    <!-- direct records showing Path: HospitalManagementSystem.Web/Views/Patients/Index.cshtml -->
+
+@{
+    ViewData["Title"] = "Patient List";
+    var currentSearchString = ViewData["CurrentSearchString"] as string;
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<div class="container-fluid py-5 text-center bg-white shadow-sm" style="border-radius: 1rem; margin-top: 2rem !important; background: linear-gradient(to right, #f0f8ff, #e6f7ff);">
+    <div class="col-md-9 mx-auto">
+        <h1 class="display-4 fw-bold text-primary mb-3">
+            <i class="bi bi-person-circle me-3"></i>Patient Dashboard
+        </h1>
+        <p class="lead fw-normal text-muted mb-4">
+            A centralized hub for managing all patient records efficiently and securely.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a class="btn btn-primary btn-lg" asp-action="Create">
+                <i class="bi bi-plus-circle me-2"></i>Register New Patient
+            </a>
+           
+            <a class="btn btn-outline-secondary btn-lg" asp-controller="Patients" asp-action="Browse">
+                <i class="bi bi-list-check me-2"></i>View All Records
+            </a>
+        </div>
+    </div>
+</div> *@
+
+@* <div class="card p-4 mx-auto mt-5" style="max-width: 1000px;">
+    <div class="text-center mb-4">
+    </div>
+    
+    <h2 class="text-center mb-4 display-5 fw-bold text-dark">
+        <i class="bi bi-people me-3 text-secondary"></i> Patient Records
+    </h2>
+    <p class="text-center text-muted mb-5">
+        Browse and search for patient information within the system.
+    </p>*@
+
+
+@* <div class="card p-2 mb-4 shadow-sm border-0" style="max-width: 900px; margin: 0 auto; border-radius: 0.5rem; background-color: #f8f9fa;">
+        <ul class="nav nav-pills nav-fill flex-column flex-sm-row">
+            <li class="nav-item">
+                <a class="nav-link @(currentAction == "Index" ? "active bg-primary text-white shadow-sm" : "text-primary")"
+                   asp-controller="Patients" asp-action="Index"
+                   aria-current="@(currentAction == "Index" ? "page" : "")">
+                    <i class="bi bi-list-ul me-2"></i>Patient List (Search)
+                </a>
+            </li>
+    </div> *@
+
+@* <li class="nav-item">
+                <a class="nav-link @(currentAction == "Create" ? "active bg-primary text-white shadow-sm" : "text-primary")"
+                   asp-controller="Patients" asp-action="Create"
+                   aria-current="@(currentAction == "Create" ? "page" : "")">
+                    <i class="bi bi-person-plus-fill me-2"></i>Add New
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentAction == "Edit" ? "active bg-primary text-white shadow-sm" : "text-primary")"
+                   asp-controller="Patients" asp-action="Edit"
+                   aria-current="@(currentAction == "Edit" ? "page" : "")">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Patient
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentAction == "Details" ? "active bg-primary text-white shadow-sm" : "text-primary")"
+                   asp-controller="Patients" asp-action="Details"
+                   aria-current="@(currentAction == "Details" ? "page" : "")">
+                    <i class="bi bi-info-circle me-2"></i>Details
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row mb-4 mt-4 justify-content-center align-items-center g-3">
+        <div class="col-12 col-md-8 col-lg-6">
+            <form asp-controller="Patients" asp-action="Index" method="get" class="d-flex w-100">
+                <input type="text" id="searchNameInput" name="searchString" class="form-control rounded-pill me-2 shadow-sm"
+                       placeholder="Search by patient name..." value="@currentSearchString" list="patientNamesDatalist" />
+                <datalist id="patientNamesDatalist"></datalist>
+                <button type="submit" class="btn btn-outline-primary rounded-pill shadow-sm flex-shrink-0">
+                    <i class="bi bi-search me-1"></i>Search
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4 text-center text-md-end">
+            <a asp-action="Create" class="btn btn-primary btn-lg">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Add New Patient
+            </a>
+        </div>
+    </div>
+
+    <div id="patient-list-section">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive mt-4">
+                <table class="table table-hover table-striped shadow-sm rounded-3 overflow-hidden">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th scope="col" class="py-3 px-3">Name</th>
+                            <th scope="col" class="py-3 px-3">Date of Birth</th>
+                            <th scope="col" class="py-3 px-3">Gender</th>
+                            <th scope="col" class="py-3 px-3">Contact Number</th>
+                            <th scope="col" class="py-3 px-3">Address</th>
+                            <th scope="col" class="py-3 px-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Gender)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                                </td>
+                                <td class="py-3 px-3">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td class="py-3 px-3 text-center">
+                                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-info">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center mt-4 p-4 shadow-sm" role="alert">
+                <h4 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i>No Patient Records Found!</h4>
+                <p class="mb-0">It looks like there are no patient records matching your criteria or in the system. Start by registering a <a asp-action="Create" class="alert-link">New Patient</a>.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var searchInput = $('#searchNameInput');
+            var patientNamesDatalist = $('#patientNamesDatalist');
+            var debounceTimer;
+
+            searchInput.on('input', function () {
+                clearTimeout(debounceTimer);
+                var searchTerm = $(this).val();
+
+                if (searchTerm.length > 1) {
+                    debounceTimer = setTimeout(function () {
+                        $.ajax({
+                            url: '@Url.Action("GetPatientNamesSuggestions", "Patients")',
+                            type: 'GET',
+                            data: { term: searchTerm },
+                            success: function (data) {
+                                patientNamesDatalist.empty();
+                                if (data && data.length > 0) {
+                                    $.each(data, function (index, value) {
+                                        patientNamesDatalist.append($('<option>').attr('value', value));
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error fetching suggestions:", error);
+                            }
+                        });
+                    }, 300);
+                } else {
+                    patientNamesDatalist.empty();
+                }
+            });
+        });
+    </script> *@
+<!-- Path: HospitalManagementSystem.Web/Views/Patients/Index.cshtml -->
+@{
+    ViewData["Title"] = "Patient Dashboard";
+    var currentSearchString = ViewData["CurrentSearchString"] as string;
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+
+<div class="container-fluid py-5 text-center bg-white shadow-sm" style="border-radius: 1rem; margin-top: 2rem !important; background: linear-gradient(to right, #f8faff, #eef5ff);">
+    <div class="col-md-9 mx-auto">
+        <h1 class="display-4 fw-bold text-primary mb-3">
+            <i class="bi bi-heart-pulse-fill me-3"></i>Patient Dashboard
+        </h1>
+        <p class="lead fw-normal text-muted mb-4">
+            Your centralized system for comprehensive patient record management, designed for clarity and efficiency.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a class="btn btn-primary btn-lg rounded-pill px-4" asp-action="Create">
+                <i class="bi bi-person-plus-fill me-2"></i>Register New Patient
+            </a>
+            <a class="btn btn-outline-secondary btn-lg rounded-pill px-4" asp-controller="Patients" asp-action="Browse">
+                <i class="bi bi-clipboard-data me-2"></i>View All Records
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <div class="row align-items-center bg-light p-4 rounded-3 shadow-sm">
+        <div class="col-md-6 mb-4 mb-md-0">
+
+            <img src="data:image/jpeg;base64,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"
+                 alt="Modern Healthcare"
+                 class="img-fluid rounded-3 shadow-md border border-light border-3"
+                 style="object-fit: cover; width: 100%; height: 100%;">
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+            <blockquote class="blockquote">
+                <p class="mb-0 fs-4 fw-semibold text-success">"Efficient patient management is the cornerstone of exceptional healthcare."</p>
+                <footer class="blockquote-footer mt-2 text-muted">A Commitment to Care</footer>
+            </blockquote>
+            <p class="lead text-muted mt-3">
+                Our platform streamlines administrative tasks, allowing healthcare professionals to focus more on patient well-being.
+            </p>
+            <a href="#" class="btn btn-info btn-lg rounded-pill px-4 mt-3">
+                <i class="bi bi-info-circle me-2"></i>Discover Features
+            </a>
+        </div>
+    </div>
+</div>
+
+
+@* <div class="container my-5">
+    <h3 class="text-center display-6 fw-bold text-dark mb-5">Key Patient Management Features</h3>
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-person-lines-fill display-4 text-primary mb-3"></i>
+                <h5 class="fw-bold text-dark">Demographics & History</h5>
+                <p class="text-muted">Maintain accurate and accessible patient profiles including medical history.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-calendar-check-fill display-4 text-success mb-3"></i>
+                <h5 class="fw-bold text-dark">Appointment Management</h5>
+                <p class="text-muted">Simplify scheduling, rescheduling, and tracking of patient visits.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-wallet-fill display-4 text-warning mb-3"></i>
+                <h5 class="fw-bold text-dark">Billing & Payments</h5>
+                <p class="text-muted">Efficiently manage patient billing, payments, and financial records.</p>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+<div class="container my-5">
+    <h3 class="text-center display-6 fw-bold text-dark mb-5">Key Patient Management Features</h3>
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-person-lines-fill display-4 text-primary mb-3"></i>
+                <h5 class="fw-bold text-dark">Demographics & History</h5>
+                <p class="text-muted">Maintain accurate and accessible patient profiles including medical history.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-calendar-check-fill display-4 text-success mb-3"></i>
+                <h5 class="fw-bold text-dark">Appointment Management</h5>
+                <p class="text-muted">Simplify scheduling, rescheduling, and tracking of patient visits.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 shadow-sm border-0 bg-white hover-lift">
+                <i class="bi bi-wallet-fill display-4 text-warning mb-3"></i>
+                <h5 class="fw-bold text-dark">Billing & Payments</h5>
+                <p class="text-muted">Efficiently manage patient billing, payments, and financial records.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var searchInput = $('#searchNameInput');
+            var patientNamesDatalist = $('#patientNamesDatalist');
+            var debounceTimer;
+
+            searchInput.on('input', function () {
+                clearTimeout(debounceTimer);
+                var searchTerm = $(this).val();
+
+                if (searchTerm.length > 1) {
+                    debounceTimer = setTimeout(function () {
+                        $.ajax({
+                            url: '@Url.Action("GetPatientNamesSuggestions", "Patients")',
+                            type: 'GET',
+                            data: { term: searchTerm },
+                            success: function (data) {
+                                patientNamesDatalist.empty();
+                                if (data && data.length > 0) {
+                                    $.each(data, function (index, value) {
+                                        patientNamesDatalist.append($('<option>').attr('value', value));
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error fetching suggestions:", error);
+                            }
+                        });
+                    }, 300);
+                } else {
+                    patientNamesDatalist.empty();
+                }
+            });
+        });
+    </script>
+}
